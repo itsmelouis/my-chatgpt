@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
 
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxt/fonts'],
 
   eslint: {
     config: {
@@ -16,5 +16,10 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
-  }
+  },
+
+  fonts: {
+    priority: ['google', 'local'],
+    provider: 'google'
+  },
 })
