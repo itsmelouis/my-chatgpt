@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
 
-  modules: ['@nuxt/eslint', '@nuxt/fonts'],
+  modules: ['@nuxt/eslint', '@nuxt/ui'],
 
   eslint: {
     config: {
@@ -22,4 +22,8 @@ export default defineNuxtConfig({
     priority: ['google', 'local'],
     provider: 'google'
   },
+
+  css: [
+    '~/assets/css/main.css'
+  ],
 })
