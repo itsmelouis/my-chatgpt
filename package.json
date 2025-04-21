@@ -8,6 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "test:unit": "vitest", 
+    "test:e2e": "playwright test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "nuxt typecheck",
@@ -30,6 +32,7 @@
   "packageManager": "pnpm@10.8.1",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "vitest": "^3.1.2"
   }
 }
