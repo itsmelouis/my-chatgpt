@@ -19,4 +19,5 @@
 
 :root {
   --ui-container: var(--container-3xl);
+  --ui-header-height: calc(var(--spacing) * 16);
 }
