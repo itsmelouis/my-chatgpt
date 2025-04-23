@@ -52,7 +52,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
     },
     children: neutrals.map(color => ({
       label: color,
-      chip: color === 'neutral' ? 'old-neutral' : color,
+      chip: color === 'neutral' ? 'neutral' : color,
       slot: 'chip',
       type: 'checkbox',
       checked: appConfig.ui.colors.neutral === color,
@@ -64,10 +64,10 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
     }))
   }]
 }, {
-  label: 'Appearance',
+  label: 'Apparence',
   icon: 'i-lucide-sun-moon',
   children: [{
-    label: 'Light',
+    label: 'Clair',
     icon: 'i-lucide-sun',
     type: 'checkbox',
     checked: colorMode.value === 'light',
@@ -77,7 +77,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
       colorMode.preference = 'light'
     }
   }, {
-    label: 'Dark',
+    label: 'Sombre',
     icon: 'i-lucide-moon',
     type: 'checkbox',
     checked: colorMode.value === 'dark',
@@ -91,46 +91,12 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
     }
   }]
 }], [{
-  label: 'Templates',
-  icon: 'i-lucide-layout-template',
-  children: [{
-    label: 'Starter',
-    to: 'https://ui-pro-starter.nuxt.dev/'
-  }, {
-    label: 'Landing',
-    to: 'https://landing-template.nuxt.dev/'
-  }, {
-    label: 'Docs',
-    to: 'https://docs-template.nuxt.dev/'
-  }, {
-    label: 'SaaS',
-    to: 'https://saas-template.nuxt.dev/'
-  }, {
-    label: 'Dashboard',
-    to: 'https://dashboard-template.nuxt.dev/'
-  }, {
-    label: 'Chat',
-    to: 'https://chat-template.nuxt.dev/',
-    checked: true,
-    type: 'checkbox'
-  }]
-}], [{
-  label: 'Documentation',
-  icon: 'i-lucide-book-open',
-  to: 'https://ui.nuxt.com/getting-started/installation/pro/nuxt',
-  target: '_blank'
-}, {
   label: 'GitHub repository',
   icon: 'i-simple-icons-github',
-  to: 'https://github.com/nuxt-ui-pro/chat',
-  target: '_blank'
-}, {
-  label: 'Upgrade to Pro',
-  icon: 'i-lucide-rocket',
-  to: 'https://ui.nuxt.com/pro/purchase',
+  to: 'https://github.com/itsmelouis/my-chatgpt',
   target: '_blank'
 }], [{
-  label: 'Log out',
+  label: 'Se déconnecter',
   icon: 'i-lucide-log-out',
   onSelect() {
     clear()

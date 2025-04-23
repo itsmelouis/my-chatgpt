@@ -50,7 +50,6 @@ defineExpose({
     <UTextarea
       ref="textarea"
       v-model="model"
-      rows="1"
       :placeholder="placeholder || 'Posez-moi une question...'"
       :disabled="Boolean(error)"
       variant="none"
