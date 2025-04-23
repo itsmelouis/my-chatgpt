@@ -13,9 +13,15 @@ export default defineNuxtConfig({
     '~/assets/css/main.css'
   ],
 
+  runtimeConfig: {
+    databaseUrl: '',
+    geminiApiKey: ''
+  },
+
   future: {
     compatibilityVersion: 4
   },
+
   compatibilityDate: '2024-11-01',
 
   eslint: {
