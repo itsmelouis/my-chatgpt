@@ -5,13 +5,22 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     'nuxt-auth-utils',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
+    '@nuxtjs/mdc'
   ],
   devtools: { enabled: true },
 
   css: [
     '~/assets/css/main.css'
   ],
+
+  mdc: {
+    highlight: {
+      theme: 'nord',
+      langs: ['js', 'ts', 'html', 'css', 'json', 'yaml', 'bash', 'graphql', 'python'],
+      wrapperStyle: true
+    }
+  },
 
   runtimeConfig: {
     databaseUrl: '',
@@ -22,7 +31,17 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
 
+  experimental: {
+    viewTransition: true
+  },
+
   compatibilityDate: '2024-11-01',
+
+  nitro: {
+    experimental: {
+      openAPI: true
+    }
+  },
 
   eslint: {
     config: {
@@ -32,7 +51,6 @@ export default defineNuxtConfig({
       }
     }
   },
-
   fonts: {
     priority: ['google', 'local'],
     provider: 'google'
