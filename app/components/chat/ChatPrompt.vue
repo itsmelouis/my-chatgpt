@@ -23,7 +23,6 @@ function submit(e) {
   if (model.value.trim() === '') {
     return
   }
-  alert('submit' + model.value)
   emits('submit', e)
 }
 function blur(e) {
@@ -56,6 +55,7 @@ defineExpose({
       :autoresize="true"
       v-bind="{ ...$attrs }"
       class="items-start"
+      :rows="1"
       @keydown.enter.exact.prevent="submit"
       @keydown.esc="blur"
     >

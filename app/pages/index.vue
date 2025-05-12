@@ -7,13 +7,13 @@ const { model } = useLLM()
 async function createChat(prompt: string) {
   input.value = prompt
   loading.value = true
-  // const chat = await $fetch('/api/chats', {
-  //   method: 'POST',
-  //   body: { input: prompt }
-  // })
+  const chat = await $fetch('/api/chats', {
+    method: 'POST',
+    body: { input: prompt }
+  })
 
   refreshNuxtData('chats')
-  // navigateTo(`/chat/${chat.id}`)
+  navigateTo(`/chat/${chat?.id}`)
 }
 
 function onSubmit() {
@@ -22,24 +22,24 @@ function onSubmit() {
 
 const quickChats = [
   {
-    label: 'Pourquoi utiliser Nuxt ?',
-    icon: 'i-logos-nuxt-icon'
+    label: 'Explique-moi les tests unitaires',
+    icon: 'i-heroicons-beaker'
   },
   {
-    label: 'Aide-moi à créer un composable Vue',
+    label: 'Comment faire du TDD en Vue ?',
     icon: 'i-logos-vue'
   },
   {
-    label: 'Parle-moi de Gemini 2',
-    icon: 'i-logos-google-gemini'
+    label: 'Meilleures pratiques pour les tests d\'intégration',
+    icon: 'i-heroicons-clipboard-document-check'
   },
   {
     label: 'Pourquoi devrais-je avoir 20 à ce projet ?',
     icon: 'i-heroicons-academic-cap'
   },
   {
-    label: 'Meilleures pratiques Tailwind CSS',
-    icon: 'i-logos-tailwindcss-icon'
+    label: 'Outils pour assurer la qualité du code',
+    icon: 'i-heroicons-wrench-screwdriver'
   }
 ]
 </script>

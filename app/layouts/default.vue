@@ -11,35 +11,32 @@ const open = ref(false)
 
 const deleteModal = overlay.create(LazyModalConfirm, {
   props: {
-    title: 'Supprimer le chat',
-    description: 'Êtes-vous sûr de vouloir supprimer ce chat ? Cette action est irréversible.'
+    title: 'Supprimer la discussion',
+    description: 'Êtes-vous sûr de vouloir supprimer cette discussion ? Cette action est irréversible.'
   }
 })
 
-const chats = ref<{ id: string, label: string, to: string, icon: string, createdAt: string }[]>([])
-
-// const { data: chats, refresh: refreshChats } = await useFetch('/api/chats', {
-//   key: 'chats',
-//   transform: data => data.map(chat => ({
-//     id: chat.id,
-//     label: chat.title || 'Untitled',
-//     to: `/chat/${chat.id}`,
-//     icon: 'i-lucide-message-circle',
-//     createdAt: chat.createdAt
-//   }))
-// })
+const { data: chats, refresh: refreshChats } = await useFetch('/api/chats', {
+  key: 'chats',
+  transform: data => data.map(chat => ({
+    id: chat.id,
+    label: chat.title || 'Pas de titre',
+    to: `/chat/${chat.id}`,
+    icon: 'i-lucide-message-circle',
+    createdAt: chat.createdAt
+  }))
+})
 
 onNuxtReady(async () => {
-  const nuxtApp = useNuxtApp()
   const first10 = (chats.value || []).slice(0, 10)
   for (const chat of first10) {
-    // prefetch the chat and store it in the payload
-    nuxtApp.payload.data[`chats/${chat.id}`] = await $fetch(`/api/chats/${chat.id}`)
+    // prefetch the chat and let the browser cache it
+    await $fetch(`/api/chats/${chat.id}`)
   }
 })
 
 watch(loggedIn, () => {
-  // refreshChats()
+  refreshChats()
 
   open.value = false
 })
@@ -54,27 +51,27 @@ const items = computed(() => groups.value?.flatMap((group) => {
     ...item,
     slot: 'chat' as const,
     icon: undefined,
-    class: item.label === 'Sans titre' ? 'text-(--ui-text-muted)' : ''
+    class: item.label === 'Pas de titre' ? 'text-muted' : ''
   }))]
 }))
 
 async function deleteChat(id: string) {
   const instance = deleteModal.open()
-  // @ts-expect-error Result is unknown
+  // @ts-expect-error - instance is not defined yet
   const result = await instance.result
   if (!result) {
     return
   }
 
-  // await $fetch(`/api/chats/${id}`, { method: 'DELETE' })
+  await $fetch(`/api/chats/${id}`, { method: 'DELETE' })
 
   toast.add({
-    title: 'Chat supprimé',
-    description: 'Votre chat a été supprimé avec succès.',
+    title: 'Discussiopn supprimée',
+    description: 'Votre discussion a été supprimée avec succès.',
     icon: 'i-lucide-trash'
   })
 
-  // refreshChats()
+  refreshChats()
 
   if (route.params.id === id) {
     navigateTo('/')
