@@ -1,60 +1,25 @@
 import process from 'node:process'
-import type { ConfigOptions } from '@nuxt/test-utils/playwright'
-import { defineConfig, devices } from '@playwright/test'
+import { defineConfig } from '@playwright/test'
 
-export default defineConfig<ConfigOptions>({
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
   testMatch: '**/tests/e2e/*.spec.ts',
+
+  // Configuration spécifique pour Nuxt
   use: {
-    baseURL: process.env.BASE_URL
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry'
   },
-  /* Configure projects for major browsers */
-  projects: [
-    {
-      name: 'Chrome',
-      use: {
-        ...devices['Desktop Chrome'],
-        browserName: 'chromium',
-        channel: 'chrome',
-        isMobile: false
-      },
-      metadata: {
-        deviceName: 'desktop-chrome'
-      }
-    },
-    {
-      name: 'Safari',
-      use: {
-        ...devices['Desktop Safari'],
-        browserName: 'webkit',
-        isMobile: false
-      },
-      metadata: {
-        deviceName: 'desktop-safari'
-      }
-    },
-    {
-      name: 'Mobile Chrome',
-      use: {
-        ...devices['Samsung Galaxy S20'],
-        browserName: 'chromium',
-        isMobile: true,
-        viewport: { width: 412, height: 915 }
-      },
-      metadata: {
-        deviceName: 'Samsung-Galaxy-20'
-      }
-    },
-    {
-      name: 'Mobile Safari',
-      use: {
-        ...devices['iPhone 14'],
-        isMobile: true,
-        browserName: 'webkit',
-        viewport: { width: 412, height: 915 }
-      },
-      metadata: {
-        deviceName: 'Iphone-14'
-      }
-    }
-  ]
+
+  // Configuration pour démarrer le serveur Nuxt avant les tests
+  webServer: {
+    command: 'pnpm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000 // 120 secondes pour démarrer le serveur
+  }
 })
