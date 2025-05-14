@@ -10,7 +10,7 @@ const is404 = computed(() => props.error?.statusCode === 404 || message.value.in
 
 useSeoMeta({
   title: 'My ChatGPT - Erreur',
-  description: 'Nous sommes désollés, mais cette page n\'existe pas ou a été supprimée.'
+  description: 'Nous sommes désolés, mais cette page n\'existe pas ou a été supprimée.'
 })
 
 useHead({

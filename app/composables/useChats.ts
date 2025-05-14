@@ -1,4 +1,5 @@
-import { isToday, isYesterday, subMonths } from 'date-fns'
+import { isToday, isYesterday, subMonths, format } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 interface Chat {
   id: string
@@ -31,11 +32,8 @@ export function useChats(chats: Ref<Chat[] | undefined>) {
       } else if (chatDate >= oneMonthAgo) {
         lastMonth.push(chat)
       } else {
-        // Format: "January 2023", "February 2023", etc.
-        const monthYear = chatDate.toLocaleDateString('en-US', {
-          month: 'long',
-          year: 'numeric'
-        })
+        // Format avec date-fns et locale française: "janvier 2023", "février 2023", etc.
+        const monthYear = format(chatDate, 'MMMM yyyy', { locale: fr })
 
         if (!older[monthYear]) {
           older[monthYear] = []
@@ -63,7 +61,7 @@ export function useChats(chats: Ref<Chat[] | undefined>) {
     if (today.length) {
       formattedGroups.push({
         id: 'today',
-        label: 'Today',
+        label: 'Aujourd\'hui',
         items: today
       })
     }
@@ -71,7 +69,7 @@ export function useChats(chats: Ref<Chat[] | undefined>) {
     if (yesterday.length) {
       formattedGroups.push({
         id: 'yesterday',
-        label: 'Yesterday',
+        label: 'Hier',
         items: yesterday
       })
     }
@@ -79,7 +77,7 @@ export function useChats(chats: Ref<Chat[] | undefined>) {
     if (lastWeek.length) {
       formattedGroups.push({
         id: 'last-week',
-        label: 'Last week',
+        label: 'Semaine dernière',
         items: lastWeek
       })
     }
@@ -87,7 +85,7 @@ export function useChats(chats: Ref<Chat[] | undefined>) {
     if (lastMonth.length) {
       formattedGroups.push({
         id: 'last-month',
-        label: 'Last month',
+        label: 'Mois dernier',
         items: lastMonth
       })
     }
